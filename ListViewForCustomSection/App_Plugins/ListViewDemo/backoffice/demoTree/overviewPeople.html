@@ -1,0 +1,79 @@
+﻿<umb-panel ng-controller="DemoSection.PeopleOverviewController">
+    <umb-header>
+        <h1>Overview</h1>
+    </umb-header>
+
+    <div class="umb-panel-body">
+        <div class="umb-pane">
+
+            <div class="umb-sub-header">
+
+                <div class="btn-group" ng-show="isAnythingSelected()">
+                    <a class="btn btn-danger" ng-disabled="actionInProgress" ng-click="delete()" prevent-default="">
+                        <localize key="actions_delete">Delete</localize>
+                    </a>
+                </div>
+
+                <form class="form-search pull-right ng-pristine ng-valid" novalidate="">
+                    <div class="inner-addon left-addon">
+                        <i class="icon icon-search"></i>
+                        <input type="text" class="form-control ng-pristine ng-valid" localize="placeholder" placeholder="Type to search..." ng-model="searchFilter" prevent-enter-submit="" no-dirty-check="" ng-change="search(searchFilter)">
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="umb-listview">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td style="width:35px"></td>
+                            <td>
+                                <a href="#" prevent-default class="sortable" ng-click="order('firstname')">FirstName</a>
+                                <i class="icon" ng-class="{'icon-navigation-up': reverse, 'icon-navigation-down': !reverse}" ng-show="predicate == 'firstname'"></i>
+                            </td>
+                            <td>
+                                <a href="#" prevent-default class="sortable" ng-click="order('lastname')">LastName</a>
+                                <i class="icon" ng-class="{'icon-navigation-up': reverse, 'icon-navigation-down': !reverse}" ng-show="predicate == 'lastname'"></i>
+                            </td>
+                            <td>
+                                <a href="#" prevent-default class="sortable" ng-click="order('age')">Age</a>
+                                <i class="icon" ng-class="{'icon-navigation-up': reverse, 'icon-navigation-down': !reverse}" ng-show="predicate == 'age'"></i>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="p in people" ng-class="{selected: isRowSelected(p.id)}">
+                            <td style="width: 35px">
+                                <i class="icon icon-edit"></i>
+                                <input type="checkbox" name="selectedItems[]" value="{{p.id}}" ng-checked="isRowSelected(p.id)" ng-click="toggleSelection(p.id)" />
+                            </td>
+                            <td>
+                                <a href="#">{{p.firstName}}</a>
+                            </td>
+                            <td>{{p.lastName}}</td>
+                            <td>{{p.age}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot ng-show="totalPages > 1">
+                        <tr>
+                            <th colspan="5">
+                                <div class="pagination pagination-right">
+                                    <ul>
+                                        <li ng-class="{disabled: currentPage == 1}">
+                                            <a href ng-click="prevPage()">Prev</a>
+                                        </li>
+                                        <li ng-repeat="i in getNumber(totalPages) track by $index" ng-click="setPage($index+1)"><span>{{$index+1}}</span></li>
+                                        <li ng-class="{disabled: currentPage == totalPages}">
+                                            <a href ng-click="nextPage()">Next</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</umb-panel>

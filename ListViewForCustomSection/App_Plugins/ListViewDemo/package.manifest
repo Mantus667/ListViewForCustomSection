@@ -1,0 +1,9 @@
+﻿{
+	propertyEditors: [],
+	parameterEditors:[],
+	javascript: [
+		'~/App_Plugins/ListViewDemo/Resources/people.resource.js',
+		'~/App_Plugins/ListViewDemo/Controller/people.overview.controller.js'
+	],
+	css: []
+}
